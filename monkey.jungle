@@ -1,0 +1,7 @@
+project.manifest = manifest.xml
+
+base.sourcePaths = source
+base.resourcePath = resources
+
+fenix5x.sourcePaths = $(base.sourcePaths)
+fenix5x.resourcePath = $(base.resourcePath)
