@@ -4,10 +4,12 @@ A custom clockwatch face designed specifically for the Garmin Fenix 5X smartwatc
 
 ## Features
 
-- Clean, minimalist time display
-- Date display with day of week
-- Battery percentage indicator with color coding
-- Step counter display
+- **Dual timezone display** - Primary local time and secondary timezone
+- **Date display** with day of week
+- **Battery percentage indicator** with color coding (Green >50%, Yellow 20-50%, Red <20%)
+- **Step counter display** for daily activity tracking
+- **Weekly run distance** tracking from activity data
+- **Last run information** displaying recent running activity
 - Optimized for Fenix 5X display dimensions
 
 ## Project Structure
@@ -71,10 +73,11 @@ monkeyc -d fenix5x -o Fenix5XClockwatch.prg -m manifest.xml $(shell find . -name
 
 ## Features Implementation
 
-### Time Display
+### Dual Timezone Display
+- **Primary time**: Local timezone displayed prominently in the center
+- **Secondary time**: Configurable timezone offset (default: UTC-5)
 - 12/24 hour format support based on device settings
-- Centered display with large font
-- Real-time updates
+- Real-time updates for both timezones
 
 ### Battery Indicator
 - Color-coded battery percentage
@@ -86,9 +89,21 @@ monkeyc -d fenix5x -o Fenix5XClockwatch.prg -m manifest.xml $(shell find . -name
 - Displayed in top-right corner
 - Uses ActivityMonitor API
 
+### Weekly Run Distance
+- Displays total weekly running distance in kilometers
+- Calculated from activity data
+- Positioned in bottom-left corner
+- Orange color coding for visibility
+
+### Last Run Information
+- Shows distance of the most recent run
+- Displays "No data" when no running activity is available
+- Positioned in bottom-right corner
+- Purple color coding
+
 ### Date Display
 - Shows day of week, month, and day
-- Positioned below the time
+- Positioned below the timezones
 - Uses medium-sized font
 
 ## Customization
@@ -97,8 +112,19 @@ The clockwatch can be customized by modifying:
 
 - **Colors**: Edit the color constants in `Fenix5XClockwatchView.mc`
 - **Layout**: Modify positioning in the `onUpdate()` method
+- **Secondary timezone**: Change the `secondaryTimezoneOffset` variable (in hours from local time)
 - **Features**: Add/remove elements by editing the drawing functions
 - **Resources**: Add custom fonts or images in the resources directory
+
+### Timezone Configuration
+To change the secondary timezone, edit the `secondaryTimezoneOffset` variable in `Fenix5XClockwatchView.mc`:
+```monkeyc
+private var secondaryTimezoneOffset = -5; // UTC-5 (EST)
+// Examples:
+// 0 = UTC
+// +1 = Central European Time
+// -8 = Pacific Standard Time
+```
 
 ## Device Compatibility
 
