@@ -41,7 +41,8 @@ class Fenix5XClockwatchView extends WatchUi.WatchFace {
         
         // Calculate secondary timezone
         var secondaryTime = Time.now();
-        var secondaryMoment = new Time.Moment(secondaryTime.value() + (secondaryTimezoneOffset * 3600));
+        var offsetSeconds = secondaryTimezoneOffset * 3600; // Convert hours to seconds
+        var secondaryMoment = new Time.Moment(secondaryTime.value() + offsetSeconds);
         var secondaryClockTime = Gregorian.info(secondaryMoment, Time.FORMAT_SHORT);
         var secondaryHours = secondaryClockTime.hour;
         var secondaryMinutes = secondaryClockTime.min;
@@ -61,16 +62,17 @@ class Fenix5XClockwatchView extends WatchUi.WatchFace {
 
         // Draw primary time (local) - centered, large
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(centerX, centerY - 40, Graphics.FONT_LARGE, primaryTimeString, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(centerX, centerY - 45, Graphics.FONT_LARGE, primaryTimeString, Graphics.TEXT_JUSTIFY_CENTER);
 
         // Draw secondary timezone label and time
         dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(centerX, centerY - 10, Graphics.FONT_TINY, "UTC" + (secondaryTimezoneOffset >= 0 ? "+" : "") + secondaryTimezoneOffset, Graphics.TEXT_JUSTIFY_CENTER);
-        dc.drawText(centerX, centerY + 5, Graphics.FONT_SMALL, secondaryTimeString, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(centerX, centerY - 15, Graphics.FONT_TINY, "UTC" + (secondaryTimezoneOffset >= 0 ? "+" : "") + secondaryTimezoneOffset, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(centerX, centerY, Graphics.FONT_SMALL, secondaryTimeString, Graphics.TEXT_JUSTIFY_CENTER);
 
         // Draw the date below timezones
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(centerX, centerY + 30, Graphics.FONT_SMALL, dateString, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(centerX, centerY + 25, Graphics.FONT_SMALL, dateString, Graphics.TEXT_JUSTIFY_CENTER);
 
         // Draw additional elements
         drawBattery(dc);
@@ -137,10 +139,10 @@ class Fenix5XClockwatchView extends WatchUi.WatchFace {
     // Helper function to draw weekly run distance
     private function drawWeeklyRunDistance(dc as Dc) as Void {
         var weeklyDistance = getWeeklyRunDistance();
-        var distanceString = Lang.format("$1$ km", [weeklyDistance.format("%.1f")]);
+        var distanceString = Lang.format("$1$km", [weeklyDistance.format("%.1f")]);
         
         dc.setColor(Graphics.COLOR_ORANGE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(20, dc.getHeight() - 40, Graphics.FONT_TINY, distanceString, Graphics.TEXT_JUSTIFY_LEFT);
+        dc.drawText(20, dc.getHeight() - 30, Graphics.FONT_TINY, distanceString, Graphics.TEXT_JUSTIFY_LEFT);
     }
 
     // Helper function to draw last run information
@@ -148,7 +150,7 @@ class Fenix5XClockwatchView extends WatchUi.WatchFace {
         var lastRunInfo = getLastRunInfo();
         
         dc.setColor(Graphics.COLOR_PURPLE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(dc.getWidth() - 20, dc.getHeight() - 40, Graphics.FONT_TINY, lastRunInfo, Graphics.TEXT_JUSTIFY_RIGHT);
+        dc.drawText(dc.getWidth() - 20, dc.getHeight() - 30, Graphics.FONT_TINY, lastRunInfo, Graphics.TEXT_JUSTIFY_RIGHT);
     }
 
     // Get weekly run distance from activity data
