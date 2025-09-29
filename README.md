@@ -71,6 +71,33 @@ monkeyc -d fenix5x -o Fenix5XClockwatch.prg -m manifest.xml $(shell find . -name
    - Use Garmin Express or Connect IQ app to sideload
    - Or use `monkeydo` with device connection
 
+## Continuous Integration
+
+This project includes automated build and artifact publishing using GitHub Actions:
+
+### GitHub Actions Workflow
+
+- **Triggers**: Automatic builds on push/PR to main/master branches, plus manual trigger
+- **Build Process**: Compiles the watchface using Garmin Connect IQ SDK
+- **Artifacts**: Publishes `.prg` files for download from GitHub Actions
+- **Releases**: Automatic release creation for Git tags
+
+### Downloading Built Artifacts
+
+1. **Latest Builds**: Go to Actions tab → select latest workflow run → download artifacts
+2. **Releases**: Check the Releases page for tagged versions
+3. **Per-commit**: Each commit generates an artifact with the commit SHA
+
+### Setting Up Production Builds
+
+The current workflow uses a demonstration environment. For production builds with the official Garmin SDK:
+
+1. See `.github/CICD_SETUP.md` for detailed setup instructions
+2. Host the official Connect IQ SDK in your own storage
+3. Update the workflow to download from your hosted location
+
+For more details, see [CI/CD Setup Guide](.github/CICD_SETUP.md).
+
 ## Features Implementation
 
 ### Dual Timezone Display
