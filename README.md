@@ -1,6 +1,24 @@
 # Fenix 5X Clockwatch
 
+[![Build Status](https://github.com/podkolzzzin/garmin-fenix5x-clockwatch/workflows/Build%20Garmin%20Connect%20IQ%20Watchface/badge.svg)](https://github.com/podkolzzzin/garmin-fenix5x-clockwatch/actions)
+
 A custom clockwatch face designed specifically for the Garmin Fenix 5X smartwatch.
+
+## Quick Start
+
+### Download Pre-built Watchface
+
+1. Go to the [Actions](https://github.com/podkolzzzin/garmin-fenix5x-clockwatch/actions) tab
+2. Click on the latest successful build
+3. Download the `fenix5x-clockwatch-latest` artifact
+4. Extract the `.prg` file and install it on your Fenix 5X
+
+### Install on Device
+
+1. Connect your Fenix 5X to your computer via USB
+2. Copy the `Fenix5XClockwatch.prg` file to the `GARMIN/APPS` folder on your device
+3. Safely eject your device
+4. On your watch, go to Settings → Watch Face → Connect IQ and select the new watchface
 
 ## Features
 
