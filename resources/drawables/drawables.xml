@@ -1,4 +1,4 @@
 <?xml version="1.0"?>
 <drawables>
-    <bitmap id="LauncherIcon" filename="icon.png"/>
+    <bitmap id="LauncherIcon" filename="../connectiq-icon.png"/>
 </drawables>

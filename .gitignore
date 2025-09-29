@@ -4,7 +4,21 @@
 *.store
 *.iq
 bin/generated/
+bin/gen/
+bin/internal-mir/
+bin/mir/
 build/
+gen/
+internal-mir/
+external-mir/
+
+# Developer Keys and Certificates (NEVER commit these)
+developer_key*
+*.jks
+*.p12
+*.pem
+*.der
+*_keystore.*
 
 # Connect IQ SDK Manager Downloads
 .Garmin/
@@ -74,6 +88,7 @@ yarn-error.log*
 .eslintcache
 coverage/
 .nyc_output/
+check-environment.ps1
 
 # Connect IQ Store Submissions
 store/
