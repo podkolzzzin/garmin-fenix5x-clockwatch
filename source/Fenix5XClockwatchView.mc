@@ -162,7 +162,7 @@ class Fenix5XClockwatchView extends WatchUi.WatchFace {
             var info = ActivityMonitor.getInfo();
             if (info != null) {
                 // Try to access weekly distance if available
-                if (info.has(:weeklyDistance) && info.weeklyDistance != null) {
+                if (info has :weeklyDistance && info.weeklyDistance != null) {
                     weeklyDistance = info.weeklyDistance / 1000.0; // Convert to km
                 } else if (info.distance != null) {
                     // Fallback: Estimate based on daily distance
@@ -191,7 +191,7 @@ class Fenix5XClockwatchView extends WatchUi.WatchFace {
                 }
                 
                 // Check if there's any recent activity
-                if (info.has(:moveBarLevel) && info.moveBarLevel != null && info.moveBarLevel > 0) {
+                if (info has :moveBarLevel && info.moveBarLevel != null && info.moveBarLevel > 0) {
                     return "Active";
                 }
             }
