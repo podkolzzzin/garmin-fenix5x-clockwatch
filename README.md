@@ -1,6 +1,24 @@
 # Fenix 5X Clockwatch
 
+[![Build Status](https://github.com/podkolzzzin/garmin-fenix5x-clockwatch/workflows/Build%20Garmin%20Connect%20IQ%20Watchface/badge.svg)](https://github.com/podkolzzzin/garmin-fenix5x-clockwatch/actions)
+
 A custom clockwatch face designed specifically for the Garmin Fenix 5X smartwatch.
+
+## Quick Start
+
+### Download Pre-built Watchface
+
+1. Go to the [Actions](https://github.com/podkolzzzin/garmin-fenix5x-clockwatch/actions) tab
+2. Click on the latest successful build
+3. Download the `fenix5x-clockwatch-latest` artifact
+4. Extract the `.prg` file and install it on your Fenix 5X
+
+### Install on Device
+
+1. Connect your Fenix 5X to your computer via USB
+2. Copy the `Fenix5XClockwatch.prg` file to the `GARMIN/APPS` folder on your device
+3. Safely eject your device
+4. On your watch, go to Settings → Watch Face → Connect IQ and select the new watchface
 
 ## Features
 
@@ -70,6 +88,33 @@ monkeyc -d fenix5x -o Fenix5XClockwatch.prg -m manifest.xml $(shell find . -name
    - Connect your Fenix 5X via USB
    - Use Garmin Express or Connect IQ app to sideload
    - Or use `monkeydo` with device connection
+
+## Continuous Integration
+
+This project includes automated build and artifact publishing using GitHub Actions:
+
+### GitHub Actions Workflow
+
+- **Triggers**: Automatic builds on push/PR to main/master branches, plus manual trigger
+- **Build Process**: Compiles the watchface using Garmin Connect IQ SDK
+- **Artifacts**: Publishes `.prg` files for download from GitHub Actions
+- **Releases**: Automatic release creation for Git tags
+
+### Downloading Built Artifacts
+
+1. **Latest Builds**: Go to Actions tab → select latest workflow run → download artifacts
+2. **Releases**: Check the Releases page for tagged versions
+3. **Per-commit**: Each commit generates an artifact with the commit SHA
+
+### Setting Up Production Builds
+
+The current workflow uses a demonstration environment. For production builds with the official Garmin SDK:
+
+1. See `.github/CICD_SETUP.md` for detailed setup instructions
+2. Host the official Connect IQ SDK in your own storage
+3. Update the workflow to download from your hosted location
+
+For more details, see [CI/CD Setup Guide](.github/CICD_SETUP.md).
 
 ## Features Implementation
 
