@@ -17,6 +17,39 @@ class Fenix5XClockwatchView extends WatchUi.WatchFace {
         WatchFace.initialize();
     }
 
+    // Helper function to get timezone name from offset
+    private function getTimezoneName(offset as Number) as String {
+        // Map common timezone offsets to names
+        if (offset == -5) {
+            return "EST";
+        } else if (offset == -8) {
+            return "PST";
+        } else if (offset == -7) {
+            return "MST";
+        } else if (offset == -6) {
+            return "CST";
+        } else if (offset == -4) {
+            return "AST";
+        } else if (offset == 0) {
+            return "UTC";
+        } else if (offset == 1) {
+            return "CET";
+        } else if (offset == 2) {
+            return "EET";
+        } else if (offset == 3) {
+            return "MSK";
+        } else if (offset == 8) {
+            return "CST";
+        } else if (offset == 9) {
+            return "JST";
+        } else if (offset == 10) {
+            return "AEST";
+        } else {
+            // Fallback to UTC+X format for unmapped timezones
+            return "UTC" + (offset >= 0 ? "+" : "") + offset;
+        }
+    }
+
     // Load your resources here
     function onLayout(dc as Dc) as Void {
         setLayout(Rez.Layouts.WatchFace(dc));
@@ -64,9 +97,9 @@ class Fenix5XClockwatchView extends WatchUi.WatchFace {
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         dc.drawText(centerX, centerY - 45, Graphics.FONT_LARGE, primaryTimeString, Graphics.TEXT_JUSTIFY_CENTER);
 
-        // Draw secondary timezone label and time
+        // Draw secondary timezone label and time with timezone name
         dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(centerX, centerY - 15, Graphics.FONT_TINY, "UTC" + (secondaryTimezoneOffset >= 0 ? "+" : "") + secondaryTimezoneOffset, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(centerX, centerY - 15, Graphics.FONT_TINY, getTimezoneName(secondaryTimezoneOffset), Graphics.TEXT_JUSTIFY_CENTER);
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         dc.drawText(centerX, centerY, Graphics.FONT_SMALL, secondaryTimeString, Graphics.TEXT_JUSTIFY_CENTER);
 
@@ -74,9 +107,10 @@ class Fenix5XClockwatchView extends WatchUi.WatchFace {
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_TRANSPARENT);
         dc.drawText(centerX, centerY + 25, Graphics.FONT_SMALL, dateString, Graphics.TEXT_JUSTIFY_CENTER);
 
-        // Draw additional elements
+        // Draw additional elements (adjusted positions for round watch)
         drawBattery(dc);
         drawSteps(dc);
+        drawHeartRate(dc);
         drawWeeklyRunDistance(dc);
         drawLastRun(dc);
     }
@@ -123,7 +157,8 @@ class Fenix5XClockwatchView extends WatchUi.WatchFace {
             dc.setColor(Graphics.COLOR_YELLOW, Graphics.COLOR_TRANSPARENT);
         }
         
-        dc.drawText(20, 20, Graphics.FONT_TINY, batteryString, Graphics.TEXT_JUSTIFY_LEFT);
+        // Position moved closer to center for round watch visibility
+        dc.drawText(40, 40, Graphics.FONT_TINY, batteryString, Graphics.TEXT_JUSTIFY_LEFT);
     }
 
     // Helper function to draw step count
@@ -133,7 +168,29 @@ class Fenix5XClockwatchView extends WatchUi.WatchFace {
         var stepsString = steps.toString();
         
         dc.setColor(Graphics.COLOR_BLUE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(dc.getWidth() - 20, 20, Graphics.FONT_TINY, stepsString, Graphics.TEXT_JUSTIFY_RIGHT);
+        // Position moved closer to center for round watch visibility
+        dc.drawText(dc.getWidth() - 40, 40, Graphics.FONT_TINY, stepsString, Graphics.TEXT_JUSTIFY_RIGHT);
+    }
+
+    // Helper function to draw heart rate (pulse)
+    private function drawHeartRate(dc as Dc) as Void {
+        var heartRate = 0;
+        
+        try {
+            var activityInfo = Activity.getActivityInfo();
+            if (activityInfo != null && activityInfo.currentHeartRate != null) {
+                heartRate = activityInfo.currentHeartRate;
+            }
+        } catch (e) {
+            // Heart rate not available, use 0
+            heartRate = 0;
+        }
+        
+        var heartRateString = heartRate > 0 ? heartRate.toString() + "bpm" : "--";
+        
+        dc.setColor(Graphics.COLOR_RED, Graphics.COLOR_TRANSPARENT);
+        // Position on left side, moved closer to center
+        dc.drawText(40, dc.getHeight() / 2 + 50, Graphics.FONT_TINY, heartRateString, Graphics.TEXT_JUSTIFY_LEFT);
     }
 
     // Helper function to draw weekly run distance
@@ -142,7 +199,8 @@ class Fenix5XClockwatchView extends WatchUi.WatchFace {
         var distanceString = Lang.format("$1$km", [weeklyDistance.format("%.1f")]);
         
         dc.setColor(Graphics.COLOR_ORANGE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(20, dc.getHeight() - 30, Graphics.FONT_TINY, distanceString, Graphics.TEXT_JUSTIFY_LEFT);
+        // Position moved closer to center for round watch visibility
+        dc.drawText(40, dc.getHeight() - 50, Graphics.FONT_TINY, distanceString, Graphics.TEXT_JUSTIFY_LEFT);
     }
 
     // Helper function to draw last run information
@@ -150,7 +208,8 @@ class Fenix5XClockwatchView extends WatchUi.WatchFace {
         var lastRunInfo = getLastRunInfo();
         
         dc.setColor(Graphics.COLOR_PURPLE, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(dc.getWidth() - 20, dc.getHeight() - 30, Graphics.FONT_TINY, lastRunInfo, Graphics.TEXT_JUSTIFY_RIGHT);
+        // Position moved closer to center for round watch visibility
+        dc.drawText(dc.getWidth() - 40, dc.getHeight() - 50, Graphics.FONT_TINY, lastRunInfo, Graphics.TEXT_JUSTIFY_RIGHT);
     }
 
     // Get weekly run distance from activity data

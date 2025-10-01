@@ -22,13 +22,14 @@ A custom clockwatch face designed specifically for the Garmin Fenix 5X smartwatc
 
 ## Features
 
-- **Dual timezone display** - Primary local time and secondary timezone
+- **Dual timezone display** - Primary local time and secondary timezone with timezone names (EST, PST, CET, etc.)
 - **Date display** with day of week
+- **Heart rate (pulse) display** - Real-time heart rate monitoring
 - **Battery percentage indicator** with color coding (Green >50%, Yellow 20-50%, Red <20%)
 - **Step counter display** for daily activity tracking
 - **Weekly run distance** tracking from activity data
 - **Last run information** displaying recent running activity
-- Optimized for Fenix 5X display dimensions
+- **Round watch optimized layout** - All data positioned for visibility on round displays
 
 ## Project Structure
 
@@ -120,36 +121,47 @@ For more details, see [CI/CD Setup Guide](.github/CICD_SETUP.md).
 
 ### Dual Timezone Display
 - **Primary time**: Local timezone displayed prominently in the center
-- **Secondary time**: Configurable timezone offset (default: UTC-5)
+- **Secondary time**: Configurable timezone offset with timezone name display (e.g., EST, PST, CET)
 - 12/24 hour format support based on device settings
 - Real-time updates for both timezones
+- Supports common timezones: EST, PST, MST, CST, AST, UTC, CET, EET, MSK, JST, AEST
+
+### Heart Rate Monitor
+- Real-time pulse/heart rate display in beats per minute (bpm)
+- Shows "--" when heart rate data is unavailable
+- Red color coding for visibility
+- Positioned on the left side of the display
 
 ### Battery Indicator
 - Color-coded battery percentage
 - Green: >50%, Yellow: 20-50%, Red: <20%
-- Displayed in top-left corner
+- Positioned closer to center for round watch visibility
 
 ### Step Counter
 - Shows current day's step count
-- Displayed in top-right corner
+- Positioned closer to center for round watch visibility
 - Uses ActivityMonitor API
 
 ### Weekly Run Distance
 - Displays total weekly running distance in kilometers
 - Calculated from activity data
-- Positioned in bottom-left corner
+- Positioned for round watch visibility
 - Orange color coding for visibility
 
 ### Last Run Information
 - Shows distance of the most recent run
-- Displays "No data" when no running activity is available
-- Positioned in bottom-right corner
+- Displays "No run" when no running activity is available
+- Positioned for round watch visibility
 - Purple color coding
 
 ### Date Display
 - Shows day of week, month, and day
 - Positioned below the timezones
 - Uses medium-sized font
+
+### Round Watch Optimization
+- All corner elements moved closer to center for better visibility on round displays
+- Layout adjusted to ensure all data is readable on circular watch faces
 
 ## Customization
 
@@ -164,11 +176,12 @@ The clockwatch can be customized by modifying:
 ### Timezone Configuration
 To change the secondary timezone, edit the `secondaryTimezoneOffset` variable in `Fenix5XClockwatchView.mc`:
 ```monkeyc
-private var secondaryTimezoneOffset = -5; // UTC-5 (EST)
-// Examples:
-// 0 = UTC
-// +1 = Central European Time
-// -8 = Pacific Standard Time
+private var secondaryTimezoneOffset = -5; // EST
+// Supported timezones with names:
+// -8 = PST, -7 = MST, -6 = CST, -5 = EST, -4 = AST
+// 0 = UTC, +1 = CET, +2 = EET, +3 = MSK
+// +8 = CST (China), +9 = JST, +10 = AEST
+// Other offsets will display as UTC+X
 ```
 
 ## Device Compatibility
