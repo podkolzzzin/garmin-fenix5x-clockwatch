@@ -1,4 +1,6 @@
 <?xml version="1.0"?>
 <drawables>
-    <bitmap id="LauncherIcon" filename="../connectiq-icon.png"/>
+    <bitmap id="LauncherIcon" filename="../launcher-icon-40x40.png"/>
+    <bitmap id="HeartIcon" filename="../heart-icon.png"/>
+    <bitmap id="BluetoothIcon" filename="../bluetooth-icon.png"/>
 </drawables>

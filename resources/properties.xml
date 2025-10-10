@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<properties>
+    <property id="LocalTimezoneName" type="string">Local</property>
+    <property id="SecondaryTimezoneName" type="string">Kiev</property>
+    <property id="SecondaryTimezoneOffset" type="number">+6</property>
+</properties>

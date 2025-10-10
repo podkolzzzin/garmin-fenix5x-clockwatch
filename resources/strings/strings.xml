@@ -1,4 +1,11 @@
 <?xml version="1.0"?>
 <strings>
     <string id="AppName">Fenix 5X Clockwatch</string>
+    
+    <!-- Timezone Settings -->
+    <string id="TimezoneSettings">Timezone Settings</string>
+    <string id="LocalTimezoneNameTitle">Local Timezone Name</string>
+    <string id="LocalTimezoneNameDefault">LOCAL</string>
+    <string id="SecondaryTimezoneNameTitle">Secondary Timezone Name</string>
+    <string id="SecondaryTimezoneNameDefault">EST</string>
 </strings>
